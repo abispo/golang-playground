@@ -2,15 +2,17 @@ package database
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/spf13/viper"
 )
 
+// DBCon is the gorm.DB reference
 var DBCon *gorm.DB
 
+// InitDB called on the main function
 func InitDB() {
 	var err error
 
-	DBCon, err = gorm.Open("mysql", "root:root@/testes?charset=utf8&parseTime=True&loc=Local")
+	DBCon, err = gorm.Open("mysql", viper.Get("CONNECTION_STRING"))
 
 	if err != nil {
 		panic(err)

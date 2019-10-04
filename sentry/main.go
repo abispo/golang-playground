@@ -5,12 +5,17 @@ import (
 	"os"
 	"time"
 
+	"github.com/spf13/viper"
+
 	"github.com/getsentry/sentry-go"
 )
 
 func main() {
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix("APP")
+
 	err := sentry.Init(sentry.ClientOptions{
-		Dsn: "http://c0d4f983c6094b14961f720cf36a60a9@127.0.0.1:9000/2",
+		Dsn: viper.Get("DSN").(string),
 	})
 
 	if err != nil {
